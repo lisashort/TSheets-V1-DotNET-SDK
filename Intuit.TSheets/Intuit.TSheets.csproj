@@ -234,6 +234,15 @@
     <None Update="Model\Schemas\ScheduleEvent.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Model\Schemas\TimeOffRequest.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Model\Schemas\TimeOffRequestEntry.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Model\Schemas\TimeOffRequestNote.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Model\Schemas\Timesheet.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

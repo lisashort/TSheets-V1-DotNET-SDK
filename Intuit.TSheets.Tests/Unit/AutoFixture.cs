@@ -59,7 +59,7 @@ namespace Intuit.TSheets.Tests.Unit
                 else
                 {
                     object data = InnerFixture.Create(type);
-                    if (type.IsGenericInterface(typeof(IReadOnlyList<>)))
+                    if (type.IsGenericInterface(typeof(IReadOnlyList<>)) || type.IsGenericInterface(typeof(IList<>)))
                     {
                         data = CreateList(typeInfo);
                     }
