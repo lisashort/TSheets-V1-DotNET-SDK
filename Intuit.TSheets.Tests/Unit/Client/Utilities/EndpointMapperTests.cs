@@ -56,6 +56,7 @@ namespace Intuit.TSheets.Tests.Unit.Client.Utilities
             Assert.AreEqual("reminders", EndpointMapper.GetEndpoint(EndpointName.Reminders));
             Assert.AreEqual("schedule_calendars", EndpointMapper.GetEndpoint(EndpointName.ScheduleCalendars));
             Assert.AreEqual("schedule_events", EndpointMapper.GetEndpoint(EndpointName.ScheduleEvents));
+            Assert.AreEqual("time_off_requests", EndpointMapper.GetEndpoint(EndpointName.TimeOffRequests));
             Assert.AreEqual("timesheets", EndpointMapper.GetEndpoint(EndpointName.Timesheets));
             Assert.AreEqual("timesheets_deleted", EndpointMapper.GetEndpoint(EndpointName.TimesheetsDeleted));
             Assert.AreEqual("users", EndpointMapper.GetEndpoint(EndpointName.Users));

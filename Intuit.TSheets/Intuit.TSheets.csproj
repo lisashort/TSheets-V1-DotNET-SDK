@@ -147,6 +147,9 @@
     <None Update="Model\Schemas\Filters\ScheduleEventFilter.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Model\Schemas\Filters\TimeOffRequestFilter.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Model\Schemas\Filters\TimesheetFilter.xsd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
