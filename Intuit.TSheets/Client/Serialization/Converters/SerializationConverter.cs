@@ -23,6 +23,7 @@ namespace Intuit.TSheets.Client.Serialization.Converters
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using Intuit.TSheets.Client.Extensions;
     using Intuit.TSheets.Client.Serialization.Attributes;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -97,6 +98,14 @@ namespace Intuit.TSheets.Client.Serialization.Converters
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             JToken jt = JToken.FromObject(value);
+
+            WalkProperties(jt, value);
+            
+            jt.WriteTo(writer);
+        }
+
+        private void WalkProperties(JToken jt, object value)
+        {
             Type type = value.GetType();
 
             foreach (PropertyInfo propInfo in type.GetProperties())
@@ -112,12 +121,31 @@ namespace Intuit.TSheets.Client.Serialization.Converters
 
                 if (propVal == null || noSerializeAttribute)
                 {
-                    var jsonPropertyAttribute = propInfo.GetCustomAttribute<JsonPropertyAttribute>();
+                    var jsonPropertyAttribute = propInfo.GetCustomAttributeOrThrow<JsonPropertyAttribute>();
                     jt.SelectToken(jsonPropertyAttribute.PropertyName).Parent.Remove();
                 }
+                else
+                {
+                    if (propVal is IEnumerable<object>)
+                    {
+                        int index = 0;
+                        foreach (object o in propVal as IEnumerable<object>)
+                        {
+                            var jsonPropertyAttribute = propInfo.GetCustomAttributeOrThrow<JsonPropertyAttribute>();
+                            WalkProperties(jt.SelectToken($"{jsonPropertyAttribute.PropertyName}[{index}]"), o);
+                            index++;
+                        }
+                    }
+                    else
+                    {
+                        if (propInfo.GetCustomAttribute(typeof(DataEntityAttribute)) != null)
+                        {
+                            var jsonPropertyAttribute = propInfo.GetCustomAttributeOrThrow<JsonPropertyAttribute>();
+                            WalkProperties(jt.SelectToken(jsonPropertyAttribute.PropertyName), propVal);
+                        }
+                    }
+                }
             }
-            
-            jt.WriteTo(writer);
         }
     }
 }
